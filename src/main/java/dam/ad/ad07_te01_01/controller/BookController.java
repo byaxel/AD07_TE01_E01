@@ -61,6 +61,28 @@ public class BookController {
         }
     }
     
+    // Filtra los libros por categoría
+    @GetMapping("/byCategory/{categoryName}")
+    public ResponseEntity<List<Book>> getBooksByCategory(@PathVariable("categoryName") String categoryName) {
+        try {
+            // Busca los libros por categoría
+            List<Book> books = bookRepository.findByCategory_Name(categoryName);
+            
+            if (books.isEmpty()) {
+                // Si no se encuentran libros, devuelve un 404 (Not Found)
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            
+            // Si hay libros, los devuelve con un estado HTTP 200 (OK)
+            return new ResponseEntity<>(books, HttpStatus.OK);
+            
+        } catch (Exception ex) {
+            // Imprime el stack trace y devuelve un error 500 (Internal Server Error)
+            ex.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
     // Crea un nuevo libro
     @PostMapping({"/", ""})
     public ResponseEntity<Book> create(@RequestBody Book book) {

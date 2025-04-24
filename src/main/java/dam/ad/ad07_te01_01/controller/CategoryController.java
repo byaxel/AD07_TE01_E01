@@ -71,14 +71,13 @@ public class CategoryController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     // Actualiza una categoría existente
     @PutMapping("/{id}")
     public ResponseEntity<Category> update(@RequestBody Category category, @PathVariable("id") Long id) {
         try {
             // Busca la categoría a actualizar por su ID
             Optional<Category> tempCategory = categoryRepository.findById(id);
-            
             if (tempCategory.isPresent()) {
                 // Si la categoría existe, actualiza el nombre y guarda los cambios
                 Category existingCategory = tempCategory.get();
@@ -98,7 +97,7 @@ public class CategoryController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     // Elimina una categoría
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {

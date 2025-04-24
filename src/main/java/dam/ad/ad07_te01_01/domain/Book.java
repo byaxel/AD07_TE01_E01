@@ -52,7 +52,7 @@ public class Book implements Serializable {
     private Category category;
     
     // Devuelve el nombre de la categoría a la que pertenece el libro
-    @JsonProperty("category")
+    @JsonProperty("categoryName")
     public String getCategoryName() {
         return category != null ? category.getName() : null;
     }
